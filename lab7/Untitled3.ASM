@@ -1,0 +1,33 @@
+JMP start
+ORG 05
+DB 48
+DB 45
+DB 4C
+DB 4C
+DB 4F
+DB 30
+
+ORG 30
+MOV BL, [DL]
+MOV [CL], BL
+INC DL
+INC CL
+
+RET
+
+start:
+MOV DL, 05
+MOV CL, C0
+
+For:
+CALL 30
+MOV AL,[DL]
+MOV BL, 30
+CMP AL,BL
+Jz END
+jmp for
+end:
+END
+
+
+END

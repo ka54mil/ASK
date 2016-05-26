@@ -1,0 +1,13 @@
+MOV AL,0
+SUB AL, A
+MOV BL, 0
+
+LOOP:
+
+ADD BL,AL
+INC AL
+INC AL
+
+CMP AL, 6;
+JNZ loop
+END
