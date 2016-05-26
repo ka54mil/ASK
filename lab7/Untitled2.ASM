@@ -1,0 +1,35 @@
+Jmp start
+ORG 3
+DB "0"
+
+ORG 5
+DB 4
+DB 7
+DB 6
+db 5
+DB 0
+
+
+ORG 30
+MOV BL, [DL]
+ADD BL, 30
+MOV [CL], BL
+INC DL
+INC CL
+
+RET
+
+start:
+
+MOV DL, 05
+MOV CL, C0
+
+For:
+CALL 30
+MOV AL,[DL]
+MOV BL, 0
+CMP AL,BL
+JZ END
+JMP For
+END:
+END

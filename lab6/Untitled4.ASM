@@ -1,0 +1,9 @@
+MOV AL, 2
+MOV BL, 3
+
+loop:
+MUL AL,BL
+INC BL
+CMP BL,6
+JNZ loop
+END

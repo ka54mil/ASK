@@ -1,0 +1,11 @@
+MOV AL, 3
+MOV BL, 30
+MOV CL, 7
+
+ADD AL, BL
+ADD CL, BL
+
+MOV [C0], AL
+MOV [C1], CL
+
+END
