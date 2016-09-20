@@ -1,5 +1,5 @@
 ;Napisz program w asm obliczaj1cy	
-; (b^3+a^2)-(((( (56)/((a/b)+(2^3)) )*3)*b)*4)+(-22)
+; (b^3+a^2)-(((( (8|(2+1))/((a/b)+(2^3)) )*3)*b)*4)+(-22)
 
 ;Przyk³adowe dane:
 ;a=9
@@ -13,8 +13,8 @@
 ;((56)/((a/b)+(2^3)))*3=9
 ;(( (56)/((a/b)+(2^3)) )*3)*b)=9
 ;((( (56)/((a/b)+(2^3)) )*3)*b)*4)=36
-;(b^3+a^2)-(((( (56)/((a/b)+(2^3)) )*3)*b)*4)=46
-; (b^3+a^2)-(((( (56)/((a/b)+(2^3)) )*3)*b)*4)+(-22)=24
+;(b^3+a^2)-(((( (54)/((a/b)+(2^3)) )*3)*b)*4)=46
+; (b^3+a^2)-(((( (54)/((a/b)+(2^3)) )*3)*b)*4)+(-22)=24
 ;wynik=24
 
 JMP START
@@ -86,9 +86,7 @@ ADD BL, CL
 JO OVERFLOW
 
 ; 56
-PUSH BL
-CALL C0 ;wynik do CL
-POP BL
+CALL 8B ;wynik do CL
 
 ; (56)/((a/b)+(2^3))
 DIV CL, BL
@@ -115,26 +113,25 @@ JO OVERFLOW
 HALT
 
 ;8 po (2+1)
-org C0
+org 8B
+	PUSH BL
 	MOV BL,8
-	MOV CL,8
-	MOV DL,3
+	MOV CL,1
+	MOV DL,1
 	FOR:
 		SUB BL,DL
 		INC BL
-		DIV BL,DL
+		DIV CL,DL
 		MUL CL,BL
 		JO OVERFLOW
 		MOV BL,8
-		ADD DL,2  ;pomijam 7
+		INC DL  
 		CMP DL,3
 		JS FOR
 		JZ FOR
-		MUL CL,7
-		DIV CL,2
+	POP BL
 RET
 
-ORG 92
 OVERFLOW:
 	MOV AL,90
 	OUT 01
@@ -159,5 +156,3 @@ END
 ; 	r /=i;
 ; }
 ; return r;
-
-END
